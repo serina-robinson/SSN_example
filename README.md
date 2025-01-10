@@ -1,7 +1,7 @@
-## Quick start 
+# Quick start 
 
-# Open the SSN_example.RProj
+### Open the SSN_example.RProj to set the working directory
 
-# Open the SSN_example.r file
+### Open the SSN_example.r file
 
-# Run script. Results will be written to the output folder
+###  Run script. Results will be written to the output folder
