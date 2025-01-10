@@ -1,5 +1,5 @@
 #Install packages
-packs<-c("igraph")
+packs<-c("igraph", "tidyverse") 
 lapply(packs, require, character.only=T)
 
 #Read in all vs. all BLAST results in tabular format
@@ -17,7 +17,7 @@ shrt<-allvall %>%
 noprs<-shrt[!shrt$prot1 == shrt$prot2,]
 noprs<-noprs[order(noprs$eval),]
 
-#Example coloring (can be changed based on protein family)
+#Example cmetadata with coloring (can be changed based on desired metadata/labeling)
 meta<-data.frame(fam = noprs$prot1,stringsAsFactors=F)
 colors <- c("red", "dodgerblue", "forestgreen") # more colors can be added
 metu<-unique(meta)
