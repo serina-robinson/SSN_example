@@ -27,6 +27,7 @@ metu$color <- rep(colors, nrow(metu)/length(colors)) # a
 colors<-unique(metu$color)
 proteins<-unique(metu$fam)
 
+# For loop to generate SSNs over a range of e-value thresholds
 for(i in seq(from=0, to=100, by=10)){ # can adjust the e-value trimming as desired e.g., now it is from 0 to 100, by 10 
   thresh<-as.numeric(paste0("1.00e-",i))
   net<-noprs[noprs$eval<(thresh),]
@@ -35,9 +36,8 @@ for(i in seq(from=0, to=100, by=10)){ # can adjust the e-value trimming as desir
   g<-simplify(graph_from_data_frame(net,vertices=metu,directed = FALSE))
   
   V(g)$color<-V(g)$color
-  head(V(g)$color)
   gr<-delete_vertices((g),degree(g)==0)
-  l<-layout_components(gr)
+  l<-layout_components(gr) # can be changed
   
   png(file = paste0("output/SSN_trim_",thresh,".png"))
   par(mar=c(0.01,0.01,0.01,0.01))
