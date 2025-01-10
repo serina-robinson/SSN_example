@@ -3,10 +3,11 @@ packs<-c("igraph")
 lapply(packs, require, character.only=T)
 
 #Read in all vs. all BLAST results in tabular format
+#Table can also be converted from a EFI-EST tabel or cytoscape table
 allvall<-read.table("data/1263_ANL_all_v_all.tsv",stringsAsFactors=F)
 head(allvall)
 
-#Convert to a SSN
+#Select desired columns 
 shrt<-allvall %>%
   dplyr::select(prot1 = 1,
                 prot2 = 2,
@@ -18,7 +19,7 @@ noprs<-noprs[order(noprs$eval),]
 
 #Example coloring (can be changed based on protein family)
 meta<-data.frame(fam = noprs$prot1,stringsAsFactors=F)
-colors <- c("red", "dodgerblue") # more colors can be added
+colors <- c("red", "dodgerblue", "forestgreen") # more colors can be added
 metu<-unique(meta)
 metu$color <- rep(colors, nrow(metu)/length(colors)) # a
 
@@ -26,7 +27,7 @@ metu$color <- rep(colors, nrow(metu)/length(colors)) # a
 colors<-unique(metu$color)
 proteins<-unique(metu$fam)
 
-for(i in seq(from=0, to=100,by=10)){
+for(i in seq(from=0, to=100, by=10)){ # can adjust the e-value trimming as desired e.g., now it is from 0 to 100, by 10 
   thresh<-as.numeric(paste0("1.00e-",i))
   net<-noprs[noprs$eval<(thresh),]
   dim(net)
